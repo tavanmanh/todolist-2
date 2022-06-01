@@ -56,6 +56,12 @@ function renderTask(tasks=[]){
     </li>`
     document.querySelector('.todo-count').innerHTML=tasks.length+" item left"
     })
+    if(tasks.length>0){
+        document.getElementById("footer").style.display = 'block';
+    }
+    else{
+        document.getElementById("footer").style.display = 'none';
+    }
     content+='</ul>'
     document.querySelector('.main').innerHTML=content
 }
