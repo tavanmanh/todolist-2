@@ -6,36 +6,40 @@ renderTask(tasks)
 
 input.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
-        if(!taskName.value){
-            alert("PLEASE ADD TASk")
-            return false
-        }
         let taskId=this.getAttribute('id')
         let tasks=getTasks()
         let task ={name:taskName.value,status: 0 }
-        if(taskId==0 || taskId){
-            tasks[taskId]= task
-            this.removeAttribute('id')
-        }
-        else{
         tasks.push(task)
-        }
         taskName.value=''
         localStorage.setItem('tasks',JSON.stringify(tasks))
         renderTask(tasks)
     }
   })
-
-function editTask(id){
-    let tasks=getTasks()
-    taskName.value=tasks[id].name
-    btnAdd.setAttribute('id',id)
-}
 function deleteTask(id){
         let tasks=getTasks()
         tasks.splice(id,1)
         localStorage.setItem('tasks',JSON.stringify(tasks))
         renderTask(getTasks())
+}
+function editTask(id){
+    console.log("dbclick")
+    let tasks=getTasks()
+    let index="edit"+id
+    let val= document.getElementById(index)
+    val.style.display='block'
+    let editView="eT"+id
+    let ed= document.getElementById(editView)
+    ed.style.display='none'
+    val.value=tasks[id].name
+    val.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            tasks[id].name=val.value
+            val.value=''
+            localStorage.setItem('tasks',JSON.stringify(tasks))
+            renderTask(tasks)
+        }
+    })
+
 }
 function renderTask(tasks=[]){
     let content='<ul class="todo-list">'
@@ -47,12 +51,12 @@ function renderTask(tasks=[]){
             completed=''
         }
         content +=`<li class="completed">
-        <div class="view">
+        <div class="view" style="display: flex;" ondblclick="editTask(${index})" id="eT${index}">
             <input onclick="updateStatus(${index})" class="toggle" type="checkbox" ${completed}>
             <label >${task.name}</label>
-            <a class="destroy" href="#" onclick="deleteTask(${index})"></a>
+            <a class="destroy" href="#" onclick="deleteTask(${index})" style="text-decoration: none;margin-top: 20px;"></a>
         </div>
-        <input class="edit" value="Rule the web">
+        <input class="edit" id="edit${index}">
     </li>`
     document.querySelector('.todo-count').innerHTML=tasks.length+" item left"
     })

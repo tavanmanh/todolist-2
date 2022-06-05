@@ -97,6 +97,7 @@ body {
 	box-sizing: border-box;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	color: black;
 }
 
 .new-todo {
@@ -172,9 +173,6 @@ body {
 	margin: 0 0 0 43px;
 }
 
-.todo-list li.editing .view {
-	display: none;
-}
 
 .todo-list li .toggle {
 	text-align: center;
@@ -231,7 +229,6 @@ body {
 	margin-bottom: 11px;
 	transition: color 0.2s ease-out;
 }
-
 .todo-list li .destroy:hover {
 	color: #af5b5e;
 }
@@ -239,7 +236,6 @@ body {
 .todo-list li .destroy:after {
 	content: '×';
 }
-
 .todo-list li:hover .destroy {
 	display: block;
 }
